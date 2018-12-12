@@ -1,25 +1,56 @@
 import React, { Component } from 'react';
 import CurrencySelector from './CurrencySelector';
+import Axios from 'axios';
 
 class CurrencyForm extends Component {
-    state = { currencies: ["AUD", "USD", "EURO", "GBP"] }
+    constructor(props) {
+        super(props);
+        this.state = { currencies: ["AUD", "USD", "EURO", "GBP"], currencyFrom: "AUD", currencyTo: "AUD", amountFrom: 0, amountTo: 0 }
+        this.handleSelect = this.handleSelect.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleInput = this.handleInput.bind(this);
+    }
+
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log("submit clicked");
+        console.log(event);
+        Axios.post('/server', { [this.state.currencyFrom]: this.state.amountFrom, [this.state.currencyTo]: this.state.amountTo }).then((res) => {
+            console.log(res);
+        })
+
+    }
+    handleSelect(event) {
+        console.log(event.target.name, event.target.value);
+        this.setState({ [event.target.name]: event.target.value });
+
     }
 
+    handleInput(event) {
+        this.setState({ [event.target.name]: event.target.value })
+    }
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
                 <label>Select current currency</label><br />
-                <CurrencySelector currencies={this.state.currencies} /><br />
-                <label>Enter amount to covert</label><br />
-                <input type="number" name="amount"></input><br />
-                <label>Select target currency</label><br />
-                <CurrencySelector currencies={this.state.currencies} /><br />
-                <input type="submit" value="convert" />
-            </form>
+                <select name="currencyFrom" value={this.state.currencyFrom} onChange={this.handleSelect}>
+                    {this.state.currencies.map((name, index) => {
+                        return <option key={index} value={name} >{name}</option>
+                    })}
+                </select><br />
+
+                <input type="number" name="amountFrom" onChange={this.handleInput}></input> <br />
+                <label>Select target currency</label> <br />
+                <select name="currencyTo" value={this.state.currencyTo} onChange={this.handleSelect}>
+                    {this.state.currencies.map((name, index) => {
+                        return <option key={index} value={name} >{name}</option>
+                    })}
+                </select><br />
+
+                <input type="submit" value="convert" onChange={this.handleInput} /><br />
+                <label>Converted Amount</label> <br />
+                <input type="number" name="amountFrom" onChange={this.handleInput}></input>
+            </form >
         );
     }
 }
