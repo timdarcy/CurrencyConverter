@@ -15,7 +15,7 @@ class CurrencyForm extends Component {
     handleSubmit(event) {
         event.preventDefault();
         console.log(event);
-        Axios.post('/server', { [this.state.currencyFrom]: this.state.amountFrom, [this.state.currencyTo]: this.state.amountTo }).then((res) => {
+        Axios.post('/server', { "currencyFrom": this.state.currencyFrom, "amountFrom": this.state.amountFrom, "currencyTo": this.state.currencyTo }).then((res) => {
             console.log(res);
         })
 
