@@ -5,7 +5,7 @@ import Axios from 'axios';
 class CurrencyForm extends Component {
     constructor(props) {
         super(props);
-        this.state = { currencies: ["AUD", "USD", "EURO", "GBP"], currencyFrom: "AUD", currencyTo: "AUD", amountFrom: 0, amountTo: 0 }
+        this.state = { currencies: ["AUD", "USD", "EUR", "GBP"], currencyFrom: "AUD", currencyTo: "AUD", amountFrom: 0, amountTo: 0 }
         this.handleSelect = this.handleSelect.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInput = this.handleInput.bind(this);
@@ -16,7 +16,8 @@ class CurrencyForm extends Component {
         event.preventDefault();
         console.log(event);
         Axios.post('/server', { "currencyFrom": this.state.currencyFrom, "amountFrom": this.state.amountFrom, "currencyTo": this.state.currencyTo }).then((res) => {
-            console.log(res);
+            console.log(res.data.result);
+            this.setState({ amountTo: res.data.result.toFixed(2) })
         })
 
     }
@@ -49,7 +50,7 @@ class CurrencyForm extends Component {
 
                 <input type="submit" value="convert" onChange={this.handleInput} /><br />
                 <label>Converted Amount</label> <br />
-                <input type="number" name="amountFrom" onChange={this.handleInput}></input>
+                <input type="number" name="amountFrom" value={this.state.amountTo} onChange={this.handleInput}></input>
             </form >
         );
     }

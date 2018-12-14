@@ -21,8 +21,10 @@ app.use((req, res) => {
     console.log(requestAddress)
     let amountFrom = request.amountFrom;
     let conversion = axios.get(requestAddress).then((response) => {
+        console.log(response.data.rates);
         let fromRate = response.data.rates[currencyFrom];
         let toRate = response.data.rates[currencyTo];
+        //returned values are conversion to euro due to api restrictions
         let euro = amountFrom / fromRate;
         let convertedAmount = euro * toRate;
         console.log(convertedAmount);
