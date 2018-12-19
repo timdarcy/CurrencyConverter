@@ -17,7 +17,7 @@ class CurrencyForm extends Component {
         console.log(event);
         Axios.post('/server', { "currencyFrom": this.state.currencyFrom, "amountFrom": this.state.amountFrom, "currencyTo": this.state.currencyTo }).then((res) => {
             console.log(res.data.result);
-            this.setState({ amountTo: res.data.result.toFixed(2) })
+            this.setState({ amountTo: res.data.result.toFixed(3) })
         })
 
     }
@@ -48,9 +48,9 @@ class CurrencyForm extends Component {
                     })}
                 </select><br />
 
-                <input type="submit" value="convert" onChange={this.handleInput} /><br />
-                <label>Converted Amount</label> <br />
-                <input type="number" name="amountFrom" value={this.state.amountTo} onChange={this.handleInput}></input>
+                <input type="submit" value="Convert" onChange={this.handleInput} /><br />
+                <label>Converted Amount:</label> <br />
+                <div type="number" name="amountFrom" onChange={this.handleInput}>${this.state.amountTo}</div>
             </form >
         );
     }

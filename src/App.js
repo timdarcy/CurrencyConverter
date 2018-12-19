@@ -7,6 +7,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <h1 className="app-heading">Currency Converter</h1>
         <CurrencyForm />
       </div>
     );
