@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import CurrencySelector from './CurrencySelector';
 import Axios from 'axios';
 
 class CurrencyForm extends Component {
@@ -15,7 +14,7 @@ class CurrencyForm extends Component {
     handleSubmit(event) {
         event.preventDefault();
         console.log(event);
-        Axios.post('/server', { "currencyFrom": this.state.currencyFrom, "amountFrom": this.state.amountFrom, "currencyTo": this.state.currencyTo }).then((res) => {
+        Axios.post('/convert', { "currencyFrom": this.state.currencyFrom, "amountFrom": this.state.amountFrom, "currencyTo": this.state.currencyTo }).then((res) => {
             console.log(res.data.result);
             this.setState({ amountTo: res.data.result.toFixed(3) })
         })
