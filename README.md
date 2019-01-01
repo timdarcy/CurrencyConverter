@@ -1,7 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ##Purpose
-This applications exists to showcase my programming ability and use of React.  
+This application exists to showcase my programming ability and use of React.  
 
 ##Live Location
 Yet to be deployed
